@@ -1,23 +1,32 @@
 const express = require('express')
 const mysql = require('mysql2')
-const bcrypt = require('bcrypt');
+const cors = require('cors');
+const bcryptjs = require('bcryptjs');
 
 
 const app = express();
-const port = 3000;
+const port = 5001;
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+  })
+);
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'css222',
-  database: 'projecttest'
+  password: '',
+  database: 'VFans',
+  port: 3307
 })
 
 connection.connect((err) => {
   if (err) {
     console.error("Error connecting to database: ");
+    console.log(err);
     return;
   }
   console.log('connected to database');
@@ -27,6 +36,7 @@ connection.connect((err) => {
 
 app.post('/api/signup', (req, res) => {
   const { username, email, password } = req.body;
+  console.log(req.body);
 
   const query = `INSERT INTO users (username, email, password) VALUES (?,?,?)`;
   connection.query(query, [username, email, password], (err, result) => {
