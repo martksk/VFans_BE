@@ -5,7 +5,7 @@ const bcryptjs = require('bcryptjs');
 
 
 const app = express();
-const port = 5001;
+const port = 3307;
 
 app.use(express.json());
 app.use(
@@ -18,8 +18,8 @@ app.use(
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
-  database: 'VFans',
+  password: 'css222',
+  database: 'projecttest',
   port: 3307
 })
 
